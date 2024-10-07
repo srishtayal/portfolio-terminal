@@ -1,25 +1,27 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
+import BootSequence from './components/BootSequence';
+import Terminal from './components/Terminal';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path='/' element={<BootSequenceWrapper />} />
+                <Route path='/terminal' element={<Terminal />} />
+            </Routes>
+        </Router>
+    );
 }
+
+const BootSequenceWrapper = () => {
+    const navigate = useNavigate();
+
+    const handleEnter = () => {
+        navigate('/terminal'); 
+    };
+
+    return <BootSequence onEnter={handleEnter} />;
+};
 
 export default App;
